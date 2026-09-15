@@ -8,7 +8,13 @@
 </head>
 <body>
   <div class="container">
-    <h1>할일 관리</h1>
+    <div class="topbar">
+      <h1>할일 관리</h1>
+      <form action="{{ url_for('logout') }}" method="post" class="logout-form">
+        <span class="username">{{ username }}</span>
+        <button type="submit" class="logout-btn">로그아웃</button>
+      </form>
+    </div>
     <p class="summary">남은 할일: {{ remaining }}개 / 전체 {{ todos|length }}개</p>
 
     <form action="{{ url_for('add') }}" method="post" class="add-form">

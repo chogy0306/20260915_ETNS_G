@@ -4,3 +4,7 @@ todo.db
 .venv/
 venv/
 .env
+
+.vercel
+.env*
+supabase/.temp/
