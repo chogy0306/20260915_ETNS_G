@@ -12,10 +12,13 @@ Python Flask로 만든 간단한 할일 관리 웹앱입니다.
 ## 기술 스택
 
 - Python / Flask
-- SQLite (파일 DB, `todo.db`)
+- PostgreSQL (Supabase)
 - HTML / CSS (별도 JS 프레임워크 없음)
+- 배포: Vercel
 
 ## 실행 방법
+
+`.env.example`을 참고해 `.env` 파일에 Supabase 연결 문자열(`DATABASE_URL`)을 넣어주세요.
 
 ```bash
 pip install -r requirements.txt
@@ -29,7 +32,9 @@ python app.py
 ```
 ETNS_TODO_APP/
 ├── app.py                 # Flask 앱 (라우트, DB 처리)
-├── requirements.txt       # 의존성 (Flask)
+├── requirements.txt       # 의존성 (Flask, psycopg2, python-dotenv)
+├── vercel.json             # Vercel 배포 설정
+├── .env.example            # 환경변수 예시 (DATABASE_URL)
 ├── templates/
 │   └── index.html         # 메인 화면
 └── static/
