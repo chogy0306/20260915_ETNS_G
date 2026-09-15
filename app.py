@@ -1,9 +1,12 @@
+import os
 import sqlite3
 from pathlib import Path
 
 from flask import Flask, g, redirect, render_template, request, url_for
 
-DB_PATH = Path(__file__).parent / "todo.db"
+# Vercel's serverless filesystem is read-only except /tmp, and /tmp is not
+# persisted between invocations, so todos won't reliably survive there.
+DB_PATH = Path("/tmp/todo.db") if os.environ.get("VERCEL") else Path(__file__).parent / "todo.db"
 
 app = Flask(__name__)
 
@@ -82,6 +85,7 @@ def edit(todo_id):
     return redirect(url_for("index"))
 
 
+init_db()
+
 if __name__ == "__main__":
-    init_db()
     app.run(debug=True)
