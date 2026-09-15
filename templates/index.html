@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>할일 관리</title>
+  <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}" />
+</head>
+<body>
+  <div class="container">
+    <h1>할일 관리</h1>
+    <p class="summary">남은 할일: {{ remaining }}개 / 전체 {{ todos|length }}개</p>
+
+    <form action="{{ url_for('add') }}" method="post" class="add-form">
+      <input type="text" name="title" placeholder="새 할일을 입력하세요" autofocus required />
+      <button type="submit">추가</button>
+    </form>
+
+    <ul class="todo-list">
+      {% for todo in todos %}
+      <li class="todo-item {{ 'done' if todo.done else '' }}">
+        <form action="{{ url_for('toggle', todo_id=todo.id) }}" method="post" class="toggle-form">
+          <button type="submit" class="checkbox">{{ '✔' if todo.done else '' }}</button>
+        </form>
+        <span class="title">{{ todo.title }}</span>
+        <form action="{{ url_for('delete', todo_id=todo.id) }}" method="post" class="delete-form">
+          <button type="submit" class="delete-btn">삭제</button>
+        </form>
+      </li>
+      {% else %}
+      <li class="empty">등록된 할일이 없습니다.</li>
+      {% endfor %}
+    </ul>
+  </div>
+</body>
+</html>
